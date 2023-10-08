@@ -24,8 +24,8 @@ public class RedDetectionPipeline extends OpenCvPipeline {
         this.telemetry = telemetry;
 
         // Define the positions and sizes of the rectangles
-        rectangles[0] = new Rect(new Point(140, 280), new Size(100, 100));
-        rectangles[1] = new Rect(new Point(430, 260), new Size(100, 100));
+        rectangles[0] = new Rect(new Point(330, 610), new Size(180, 180));
+        rectangles[1] = new Rect(new Point(930, 575), new Size(180, 180));
         rectangles[2] = new Rect(new Point(520, 10), new Size(100, 100));
     }
 
@@ -68,14 +68,14 @@ public class RedDetectionPipeline extends OpenCvPipeline {
         Imgproc.cvtColor(roi, hsv, Imgproc.COLOR_BGR2HSV);
 
         // Define the lower and upper bounds of the red hue
-        Scalar lowerRed1 = new Scalar(0, 120, 120);  // Lower bound (red hues)
+        Scalar lowerRed1 = new Scalar(0,100, 20);  // Lower bound (red hues)
         Scalar upperRed1 = new Scalar(10, 255, 255); // Upper bound (red hues)
         Mat redMask1 = new Mat();
         Core.inRange(hsv, lowerRed1, upperRed1, redMask1);
 
         // Include another range for the red hue (since it wraps around)
-        Scalar lowerRed2 = new Scalar(160, 120, 120); // Lower bound for the other range
-        Scalar upperRed2 = new Scalar(180, 255, 255); // Upper bound for the other range
+        Scalar lowerRed2 = new Scalar(160, 100, 20); // Lower bound for the other range
+        Scalar upperRed2 = new Scalar(179, 255, 255); // Upper bound for the other range
         Mat redMask2 = new Mat();
         Core.inRange(hsv, lowerRed2, upperRed2, redMask2);
 
@@ -84,7 +84,7 @@ public class RedDetectionPipeline extends OpenCvPipeline {
         Core.bitwise_or(redMask1, redMask2, redMask);
 
         // Increase the saturation and value thresholds to filter out other colors
-        Scalar lowerThreshold = new Scalar(0, 50, 50);
+        Scalar lowerThreshold = new Scalar(0, 80, 80);
         Scalar upperThreshold = new Scalar(180, 255, 255);
         Core.inRange(hsv, lowerThreshold, upperThreshold, redMask);
 
@@ -116,7 +116,7 @@ public class RedDetectionPipeline extends OpenCvPipeline {
 
         // Draw rectangles on the input frame for visualization
         for (int i = 0; i < rectangles.length; i++) {
-            Scalar color = (i == maxIndex) ? new Scalar(0, 255, 0) : new Scalar(0, 0, 255);
+            Scalar color = (i == maxIndex) ? new Scalar(0, 255, 0) : new Scalar(0, 255, 255);
             Imgproc.rectangle(frame, rectangles[i].tl(), rectangles[i].br(), color, 2);
         }
     }
@@ -124,7 +124,7 @@ public class RedDetectionPipeline extends OpenCvPipeline {
     private void drawText(Mat frame) {
         // Draw text with the selected rectangle name on the input frame for visualization
         Point textPosition = new Point(30, 30);
-        Imgproc.putText(frame, "Selected Rectangle: " + selectedRectangle, textPosition, Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(255, 255, 255), 2);
+        Imgproc.putText(frame, "Selected Rectangle: " + selectedRectangle, textPosition, Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 0, 0), 4);
     }
 }
 
