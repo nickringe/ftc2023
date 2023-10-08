@@ -21,17 +21,9 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
         //to track whether or not we want to cap the robot's drive speed at 25%
         boolean capPower25 = false;
 
-        //Go to build team
-        //Ask them to tell you exactly which motors and which Servos
-        //Control each button on both gamepads
-
-        //Take the paper with you that has the buttons mapped out.
-        //Write on that paper
-
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
         // reverse the left side instead.
-        // See the note about this earlier on this page.
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -95,7 +87,7 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
                 hookMotor.setPower(0); //then stops
             }
              */
-            
+
             //added to slow down the loop - common practice to reduce
             //likelyhood of erratic behavior
             idle();
