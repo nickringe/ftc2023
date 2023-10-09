@@ -14,16 +14,25 @@ public class RedDetectionAutonomous extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Initialize hardware, motors, servos etc
+        //this example shows how to put all of our hardware into a separate class
+        //and call it. This cleans up our code and makes it easier to maintain
+        RobotHardware myHardware;
+        myHardware = new RobotHardware(hardwareMap);
 
-        //making the webcam object
+        //making the webcam object -
         OpenCvInternalCamera webcam;
 
         // Initialize the RedDetectionPipeline with telemetry
         RedDetectionPipeline redPipeline = new RedDetectionPipeline(telemetry);
 
-        // Configure the camera
+        // Configure the camera - this line can go in the RobotHardware class
+        // This goes away if we're using the RobotHardware class
         webcam = hardwareMap.get(OpenCvInternalCamera.class, "yourWebcamName");
+
+        //If this was in the RobotHardware class, we would call it a little differently
         webcam.setPipeline(redPipeline);
+        // myHardware.getWebcam().setPipeline(redPipeline);
+
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -39,10 +48,14 @@ public class RedDetectionAutonomous extends LinearOpMode {
                 telemetry.update();
             }});
 
+
+
         waitForStart();
 
 
         while (opModeIsActive()) {
+
+
             // Access the selected rectangle using redPipeline.getSelectedRectangle()
             // Implement your autonomous logic based on the selected rectangle
             String selectedRectangle = redPipeline.getSelectedRectangle();
