@@ -24,9 +24,9 @@ import org.openftc.easyopencv.OpenCvPipeline;
             this.telemetry = telemetry;
 
             // Define the positions and sizes of the rectangles
-            rectangles[0] = new Rect(new Point(140, 280), new Size(100, 100));
-            rectangles[1] = new Rect(new Point(430, 260), new Size(100, 100));
-            rectangles[2] = new Rect(new Point(520, 10), new Size(100, 100));
+            rectangles[0] = new Rect(new Point(125, 280), new Size(100, 100));
+            rectangles[1] = new Rect(new Point(335, 260), new Size(100, 100));
+            rectangles[2] = new Rect(new Point(530, 280), new Size(100, 100));
         }
 
         @Override
