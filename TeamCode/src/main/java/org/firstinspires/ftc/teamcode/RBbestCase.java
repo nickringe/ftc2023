@@ -6,9 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.vision.RedDetectionPipeline;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 
 @Autonomous
-public class RAjustPark extends LinearOpMode {
+public class RBbestCase extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize hardware, motors, servos etc
@@ -21,11 +25,35 @@ public class RAjustPark extends LinearOpMode {
         DcMotor intakeMotorLeft = hardwareMap.dcMotor.get("intakeMotorLeft");
         DcMotor intakeMotorRight = hardwareMap.dcMotor.get("intakeMotorRight");
         Servo airplaneServo = hardwareMap.servo.get("airplaneServo");
+        OpenCvInternalCamera webcam = hardwareMap.get(OpenCvInternalCamera.class, "webcam");
         SampleMecanumDrive drive;
 
         // Initialize drive variable
         drive = new SampleMecanumDrive(hardwareMap);
 
+        // Initialize the RedDetectionPipeline
+        RedDetectionPipeline redPipeline = new RedDetectionPipeline(telemetry);
+        webcam.setPipeline(redPipeline);
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                // Configure camera settings if needed
+                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                // Handle the error based on the errorCode
+                telemetry.addData("Error", "Camera failed to open with error code: " + errorCode);
+                telemetry.update();
+            }
+        });
+
+
+        // Access the selected rectangle using redPipeline.getSelectedRectangle()
+        String selectedRectangle = redPipeline.getSelectedRectangle();
+        telemetry.addData("Selected Rectangle", redPipeline.getSelectedRectangle());
+        telemetry.update();
         waitForStart();
 
 
@@ -85,7 +113,6 @@ public class RAjustPark extends LinearOpMode {
                 drive.followTrajectory(strafeToTheSideAndPark);
 
             */
-
 
         }
 

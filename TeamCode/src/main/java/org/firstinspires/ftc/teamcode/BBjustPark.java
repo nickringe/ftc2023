@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @Autonomous
-public class RAjustPark extends LinearOpMode {
+public class BBjustPark extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize hardware, motors, servos etc
