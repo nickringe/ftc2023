@@ -54,6 +54,7 @@ public class RAbestCase extends LinearOpMode {
         // Access the selected rectangle using redPipeline.getSelectedRectangle()
         String selectedRectangle = redPipeline.getSelectedRectangle();
         telemetry.addData("Selected Rectangle", redPipeline.getSelectedRectangle());
+        telemetry.addData("String selectedRectangle", selectedRectangle);
         telemetry.update();
         waitForStart();
 

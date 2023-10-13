@@ -54,6 +54,7 @@ public class BAbestCase extends LinearOpMode {
         // Access the selected rectangle using redPipeline.getSelectedRectangle()
         String selectedRectangle = bluePipeline.getSelectedRectangle();
         telemetry.addData("Selected Rectangle", bluePipeline.getSelectedRectangle());
+        telemetry.addData("String selectedRectangle", selectedRectangle);
         telemetry.update();
         waitForStart();
 
