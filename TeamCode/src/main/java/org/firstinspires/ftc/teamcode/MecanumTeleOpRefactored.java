@@ -3,7 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class MecanumTeleOpRefactored extends LinearOpMode {
 
@@ -17,9 +20,14 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         DcMotor hookMotor = hardwareMap.dcMotor.get("hookMotor");
         Servo airplaneServo = hardwareMap.servo.get("airplaneServo");
+        DistanceSensor distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
         //to track whether or not we want to cap the robot's drive speed at 25%
         boolean capPower25 = false;
+
+        double maxSpeed = 1.0;  // Maximum speed when not close to an object
+        double minDistance = 12.0;  // Minimum distance to cap the speed (in inches)
+
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -33,6 +41,12 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            // Read distance from the sensor
+            double currentDistance = distanceSensor.getDistance(DistanceUnit.INCH);
+
+            // Calculate the speed adjustment based on distance
+            double speedAdjustment = (currentDistance > minDistance) ? 1.0 : 0.25;
+
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
@@ -40,11 +54,12 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
             // but only if at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
+            // Calculate motor powers with normalization and conditional scaling
+            double frontLeftPower = (y + x + rx) / (Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1.0)) * speedAdjustment;
+            double backLeftPower = (y - x + rx) / (Math.max(Math.abs(y) - Math.abs(x) - Math.abs(rx), 1.0)) * speedAdjustment;
+            double frontRightPower = (y - x - rx) / (Math.max(Math.abs(y) - Math.abs(x) + Math.abs(rx), 1.0)) * speedAdjustment;
+            double backRightPower = (y + x - rx) / (Math.max(Math.abs(y) + Math.abs(x) - Math.abs(rx), 1.0)) * speedAdjustment;
+
 
             // Check if power should be capped
             if (capPower25) {
