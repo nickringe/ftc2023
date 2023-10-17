@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -31,7 +32,11 @@ public class BBjustPark extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
+            Trajectory BBJustParkTrajectory = drive.trajectoryBuilder()
+                    .forward(5)
+                    .strafeLeft(55.5)
+                    .setMotorPowers(0,0,0,0)
+                    .build();
             //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
 
             /*

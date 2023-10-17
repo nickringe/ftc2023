@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -56,10 +58,63 @@ public class BAbestCase extends LinearOpMode {
         telemetry.addData("Selected Rectangle", bluePipeline.getSelectedRectangle());
         telemetry.addData("String selectedRectangle", selectedRectangle);
         telemetry.update();
+
+        //this tells the program where we are starting on the field
+        //and where which direction we are facing
+        Pose2d startingPose = new Pose2d(63.5, 12, Math.toRadians(90));
+
         waitForStart();
 
 
         while (opModeIsActive()) {
+
+            if (selectedRectangle == "left") {
+                //make a trajectory that goes to the left spike mark
+                //spin the intake motors backwards very gently to release pixel
+                //make a trajectory that goes to the left side of the pixel board
+                //strafe to the side and park
+            } else if (selectedRectangle == "center") {
+                //make a trajectory that goes to the center spike mark
+                //spin the intake motors backwards very gently to release pixel
+                //make a trajectory that goes to the center of the pixel board
+                //strafe to the side and park
+            } else {
+                //if selectedRectangle isn't left or center, it's "right"
+                //make a trajectory that goes to the right spike mark
+                //spin the intake motors backwards very gently to release pixel
+                //make a trajectory that goes to the right side of the pixel board
+                //strafe to the side and park
+            }
+
+            Trajectory baLeftTraj1 = drive.trajectoryBuilder(startingPose)
+                    .forward(30)
+                    .strafeRight(24)
+                    .forward(30)
+                    .strafeLeft(108)
+                    .build();
+
+            // .turn(Math.toRadians(-90)) <---these will all go away
+
+            //Start putting it all together:
+            drive.followTrajectory(baLeftTraj1);
+            drive.turn(Math.toRadians(-90)); //<--- deleted above and placed here instead
+
+            //Create a new starting pose
+            Pose2d baLeftPose2 = drive.getPoseEstimate();
+
+            //Create a new trajectory here that connects to the new pose
+            Trajectory BBJustParkTrajPart2 = drive.trajectoryBuilder(baLeftPose2)
+                    .strafeLeft(24)
+                    .forward(11)
+                    .strafeLeft(12)
+                    .forward(6)
+                    .build();
+
+            //Follow the second Trajectory
+            drive.followTrajectory(BBJustParkTrajPart2);
+
+            //Stop the motors
+            drive.setMotorPowers(0,0,0,0);
 
 
             //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
