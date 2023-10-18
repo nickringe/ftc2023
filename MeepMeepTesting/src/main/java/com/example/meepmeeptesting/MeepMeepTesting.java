@@ -15,10 +15,18 @@ public class MeepMeepTesting {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-36, 63.5, 0)) //start pose here
                                 .turn(Math.toRadians(270))
-                                .strafeRight(21)
-                                .forward(51)
-                                .strafeLeft(120)
-                                //.setMotorPowers(0,0,0,0)
+                                .forward(20)
+                                .strafeRight(18)
+                                .turn(Math.toRadians(40))
+                                .forward(14)
+                                .back(12)
+                                .turn(Math.toRadians(-40))
+                                .forward(32)
+                                .turn(Math.toRadians(90))
+                                .forward(100)
+                                .strafeLeft(24)
+                                .strafeRight(24)
+                                .forward(14)
                                 .build()
                 );
 

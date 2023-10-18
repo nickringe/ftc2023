@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -61,7 +60,7 @@ public class BAbestCase extends LinearOpMode {
 
         //this tells the program where we are starting on the field
         //and where which direction we are facing
-        Pose2d startingPose = new Pose2d(63.5, 12, Math.toRadians(90));
+        Pose2d startingPose = new Pose2d(-36, 63.5, Math.toRadians(270));
 
         waitForStart();
 
@@ -70,11 +69,73 @@ public class BAbestCase extends LinearOpMode {
 
             if (selectedRectangle == "left") {
                 //make a trajectory that goes to the left spike mark
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(12)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(45));
+                Pose2d leftPose2 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose2)
+                        .forward(6)
+                        .build());
+                sleep(500);
+                Pose2d leftPose3 = drive.getPoseEstimate();
                 //spin the intake motors backwards very gently to release pixel
+                intakeMotorLeft.setPower(0.2);
+                intakeMotorRight.setPower(-0.2);
+                sleep(250);
+
                 //make a trajectory that goes to the left side of the pixel board
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose3)
+                        .back(6)
+                        .build());
+                drive.turn(Math.toRadians(-45));
+                Pose2d leftPose4 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose4)
+                        .strafeRight(18)
+                        .build());
+                sleep(250);
+                Pose2d leftPose5 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose5)
+                        .forward(32)
+                        .build());
+                drive.turn(Math.toRadians(90));
+                sleep(250);
+                Pose2d leftPose6 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose6)
+                        .forward(100)
+                        .strafeLeft(30)
+                        .build());
+                //motor and servo logic to drop pixel on board
+                    //TODO motor and servo add logic here
+
                 //strafe to the side and park
+                Pose2d leftPose7 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose7)
+                        .strafeRight(30)
+                        .forward(14)
+                        .build());
             } else if (selectedRectangle == "center") {
                 //make a trajectory that goes to the center spike mark
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(20)
+                        .strafeRight(18)
+                        .build());
+
+                sleep(250);
+                drive.turn(Math.toRadians(40));
+                        //.forward(20)
+                        //.strafeRight(18)
+                       // .turn(Math.toRadians(40))
+                        .forward(14)
+                        .back(12)
+                        .turn(Math.toRadians(-40))
+                        .forward(32)
+                        .turn(Math.toRadians(90))
+                        .forward(100)
+                        .strafeLeft(24)
+                        .strafeRight(24)
+                        .forward(14)
                 //spin the intake motors backwards very gently to release pixel
                 //make a trajectory that goes to the center of the pixel board
                 //strafe to the side and park
@@ -85,33 +146,6 @@ public class BAbestCase extends LinearOpMode {
                 //make a trajectory that goes to the right side of the pixel board
                 //strafe to the side and park
             }
-
-            Trajectory baLeftTraj1 = drive.trajectoryBuilder(startingPose)
-                    .forward(30)
-                    .strafeRight(24)
-                    .forward(30)
-                    .strafeLeft(108)
-                    .build();
-
-            // .turn(Math.toRadians(-90)) <---these will all go away
-
-            //Start putting it all together:
-            drive.followTrajectory(baLeftTraj1);
-            drive.turn(Math.toRadians(-90)); //<--- deleted above and placed here instead
-
-            //Create a new starting pose
-            Pose2d baLeftPose2 = drive.getPoseEstimate();
-
-            //Create a new trajectory here that connects to the new pose
-            Trajectory BBJustParkTrajPart2 = drive.trajectoryBuilder(baLeftPose2)
-                    .strafeLeft(24)
-                    .forward(11)
-                    .strafeLeft(12)
-                    .forward(6)
-                    .build();
-
-            //Follow the second Trajectory
-            drive.followTrajectory(BBJustParkTrajPart2);
 
             //Stop the motors
             drive.setMotorPowers(0,0,0,0);
