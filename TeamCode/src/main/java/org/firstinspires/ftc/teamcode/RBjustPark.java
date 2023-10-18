@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -27,16 +28,19 @@ public class RBjustPark extends LinearOpMode {
         // Initialize drive variable
         drive = new SampleMecanumDrive(hardwareMap);
 
+        Pose2d startPose = new Pose2d(12,-63.5,90);
         waitForStart();
 
 
         while (opModeIsActive()) {
 
-            Trajectory RBJustParkTrajectory = drive.trajectoryBuilder()
+            Trajectory RBJustParkTrajectory = drive.trajectoryBuilder(startPose)
                     .forward(5)
                     .strafeRight(55.5)
-                    .setMotorPowers(0,0,0,0)
                     .build();
+
+            drive.followTrajectory(RBJustParkTrajectory);
+            drive.setMotorPowers(0,0,0,0);
             //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
 
             /*
