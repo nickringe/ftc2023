@@ -136,13 +136,61 @@ public class BAbestCase extends LinearOpMode {
                         .strafeLeft(24)
                         .strafeRight(24)
                         .forward(14)
+                        .build();
                 //spin the intake motors backwards very gently to release pixel
                 //make a trajectory that goes to the center of the pixel board
                 //strafe to the side and park
             } else {
                 //if selectedRectangle isn't left or center, it's "right"
                 //make a trajectory that goes to the right spike mark
-                //spin the intake motors backwards very gently to release pixel
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(26)
+                        .build());
+                sleep(500);
+                Pose2d rightPose2 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose2)
+                        .strafeRight(10)
+                        .build());
+                sleep(500);
+                //TODO  spin the intake motors backwards very gently to release pixel
+                Pose2d rightPose3 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose3)
+                        .back(12)
+                        .build());
+                sleep(500);
+                Pose2d rightPose4 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose4)
+                        .strafeLeft(12)
+                        .build());
+                sleep(500);
+                Pose2d rightPose5 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose5)
+                        .forward(38)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(90));
+                Pose2d rightPose6 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose6)
+                        .forward(82)
+                        .build());
+                sleep(500);
+                Pose2d rightPose7 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose7)
+                        .strafeLeft(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose8 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose8)
+                        .strafeLeft(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose9 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose9)
+                        .forward(12)
+                        .build());
+                sleep(500);
+
+
                 //make a trajectory that goes to the right side of the pixel board
                 //strafe to the side and park
             }
