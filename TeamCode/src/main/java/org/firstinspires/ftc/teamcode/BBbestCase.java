@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -60,6 +61,164 @@ public class BBbestCase extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+            if (selectedRectangle == "left") {
+                //make a trajectory that goes to the left spike mark
+                Pose2d startingPose= new Pose2d(12, 63.5, Math.toRadians(270));
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(14)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(38));
+                Pose2d leftPose2 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose2)
+                        .forward(6)
+                        .build());
+                sleep(500);
+                Pose2d leftPose3 = drive.getPoseEstimate();
+                //spin the intake motors backwards very gently to release pixel
+                intakeMotorLeft.setPower(0.2);
+                intakeMotorRight.setPower(-0.2);
+                sleep(500);
+                //make a trajectory that goes to the left side of the pixel board
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose3)
+                        .back(6)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(50));
+                Pose2d leftPose4 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose4)
+                        .forward(34)
+                        .build());
+                sleep(500);
+                Pose2d leftPose5 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose5)
+                        .strafeRight(6)
+                        .build());
+                sleep(500);
+                Pose2d leftPose6 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose6)
+                        .strafeLeft(18)
+                        .build());
+                sleep(500);
+                Pose2d leftPose7 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(leftPose7)
+                        .forward(12)
+                        .build());
+                sleep(500);
+
+
+            } else if (selectedRectangle == "center") {
+                //make a trajectory that goes to the center spike mark
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(20)
+                        .build());
+
+                sleep(250);
+                drive.turn(Math.toRadians(40));
+                Pose2d rightPose2=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose2)
+                        .strafeRight(20)
+                        .build());
+                sleep(500);
+                Pose2d rightPose3=drive.getPoseEstimate();
+                drive.turn(Math.toRadians(40));
+                sleep(500);
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose3)
+                        .forward(14)
+                        .build());
+                sleep(500);
+                Pose2d rightPose4=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose4)
+                        .back(12)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(-40));
+                Pose2d rightPose5 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose5)
+                        .forward(32)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(90));
+                Pose2d rightPose6=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose6)
+                        .forward(100)
+                        .build());
+                sleep(500);
+                Pose2d rightPose7=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose7)
+                        .strafeLeft(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose8=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose8)
+                        .strafeRight(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose9=drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose9)
+                        .forward(14)
+                        .build());
+                sleep(500);
+                //spin the intake motors backwards very gently to release pixel
+                //make a trajectory that goes to the center of the pixel board
+                //strafe to the side and park
+            } else {
+                //if selectedRectangle isn't left or center, it's "right"
+                //make a trajectory that goes to the right spike mark
+                drive.followTrajectory(drive.trajectoryBuilder(startingPose)
+                        .forward(26)
+                        .build());
+                sleep(500);
+                Pose2d rightPose2 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose2)
+                        .strafeRight(10)
+                        .build());
+                sleep(500);
+                //TODO  spin the intake motors backwards very gently to release pixel
+                Pose2d rightPose3 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose3)
+                        .back(12)
+                        .build());
+                sleep(500);
+                Pose2d rightPose4 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose4)
+                        .strafeLeft(12)
+                        .build());
+                sleep(500);
+                Pose2d rightPose5 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose5)
+                        .forward(38)
+                        .build());
+                sleep(500);
+                drive.turn(Math.toRadians(90));
+                Pose2d rightPose6 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose6)
+                        .forward(82)
+                        .build());
+                sleep(500);
+                Pose2d rightPose7 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose7)
+                        .strafeLeft(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose8 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose8)
+                        .strafeLeft(24)
+                        .build());
+                sleep(500);
+                Pose2d rightPose9 = drive.getPoseEstimate();
+                drive.followTrajectory(drive.trajectoryBuilder(rightPose9)
+                        .forward(12)
+                        .build());
+                sleep(500);
+
+
+                //make a trajectory that goes to the right side of the pixel board
+                //strafe to the side and park
+            }
+
+            //Stop the motors
+            drive.setMotorPowers(0,0,0,0);
 
 
     //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
