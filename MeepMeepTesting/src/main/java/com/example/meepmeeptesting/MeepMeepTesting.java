@@ -13,7 +13,41 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 12)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-36, 63.5, 0)) //start pose here
+                        drive.trajectorySequenceBuilder(new Pose2d(12, 63.5, 0)) //start pose here
+
+                    //****************BB BEST -Right- ********************//
+//                                .turn(Math.toRadians(270))
+//                                .forward(24.5)
+//                                .turn(Math.toRadians(-60))
+//                                .back(5)
+//                                .turn(Math.toRadians(150))
+//                                .strafeRight(13)
+//                                .forward(28)
+//                                .strafeRight(17)
+//                                .forward(12)
+//                  //****************BB BEST -Center- ********************//
+//                                .turn(Math.toRadians(270))
+//                                .forward(20)
+//                                .strafeLeft(8)
+//                                .turn(Math.toRadians(-10))
+//                                .forward(8)
+//                                .back(8)
+//                                .turn(Math.toRadians(100))
+//                                .strafeRight(8)
+//                                .forward(28)
+//                                .strafeRight(24)
+//                                .forward(10)
+                    //****************BB BEST -Left- ********************//
+//                                .turn(Math.toRadians(270))
+//                                .forward(14)
+//                                .turn(Math.toRadians(38))
+//                                .forward(6)
+//                                .back(6)
+//                                .turn(Math.toRadians(50))
+//                                .forward(34)
+//                                .strafeRight(6)
+//                                .strafeLeft(18)
+//                                .forward(12)
 
                     //****************BA BEST -Right- ********************//
 //                                .turn(Math.toRadians(270))
@@ -42,6 +76,7 @@ public class MeepMeepTesting {
 //                                .strafeLeft(24)
 //                                .strafeRight(24)
 //                                .forward(14)
+
                      //****************BA BEST -Left- ********************//
 //                                .turn(Math.toRadians(270))
 //                                .forward(20)
@@ -56,17 +91,6 @@ public class MeepMeepTesting {
 //                                .strafeLeft(30)
 //                                .strafeRight(30)
 //                                .forward(14)
-
-
-//                                .forward(14)
-//                                .turn(Math.toRadians(38))
-//                                .forward(6)
-//                                .back(6)
-//                                .turn(Math.toRadians(50))
-//                                .forward(34)
-//                                .strafeRight(6)
-//                                .strafeLeft(18)
-//                                .forward(12)
 
                                 .build()
                 );

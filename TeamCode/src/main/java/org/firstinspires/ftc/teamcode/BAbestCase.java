@@ -73,43 +73,55 @@ public class BAbestCase extends LinearOpMode {
                         .forward(12)
                         .build());
                 sleep(500);
+
                 drive.turn(Math.toRadians(45));
+                sleep(500);
+
                 Pose2d leftPose2 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose2)
                         .forward(6)
                         .build());
                 sleep(500);
-                Pose2d leftPose3 = drive.getPoseEstimate();
 
                 //spin the intake motors backwards very gently to release pixel
                 intakeMotorLeft.setPower(0.2);
                 intakeMotorRight.setPower(-0.2);
-                sleep(250);
+                sleep(500);
                 intakeMotorLeft.setPower(0);
                 intakeMotorRight.setPower(0);
 
                 //make a trajectory that goes to the left side of the pixel board
+                Pose2d leftPose3 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose3)
                         .back(6)
                         .build());
+                sleep(500);
+
                 drive.turn(Math.toRadians(-45));
+                sleep(500);
+
                 Pose2d leftPose4 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose4)
                         .strafeRight(18)
                         .build());
-                sleep(250);
+                sleep(500);
+
                 Pose2d leftPose5 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose5)
                         .forward(32)
                         .build());
+                sleep(500);
+
                 drive.turn(Math.toRadians(90));
                 sleep(250);
+
                 Pose2d leftPose6 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose6)
                         .forward(100)
                         .strafeLeft(30)
                         .build());
                 sleep(500);
+
                 Pose2d leftPose7 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose7)
                         .strafeLeft(30)
@@ -122,9 +134,9 @@ public class BAbestCase extends LinearOpMode {
                 Pose2d leftPose8 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose8)
                         .strafeRight(30)
-                        .forward(14)
                         .build());
                 sleep(500);
+
                 Pose2d leftPose9 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(leftPose9)
                         .forward(14)
@@ -135,9 +147,8 @@ public class BAbestCase extends LinearOpMode {
                 drive.followTrajectory(drive.trajectoryBuilder(startingPose)
                         .forward(20)
                         .build());
-                sleep(250);
+                sleep(500);
 
-                //make a trajectory that goes to the center of the pixel board
                 Pose2d rightPose2=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose2)
                         .strafeRight(20)
@@ -151,44 +162,57 @@ public class BAbestCase extends LinearOpMode {
                 intakeMotorLeft.setPower(0);
                 intakeMotorRight.setPower(0);
 
-                Pose2d rightPose3=drive.getPoseEstimate();
+                //make a trajectory that goes to the center of the pixel board
                 drive.turn(Math.toRadians(40));
                 sleep(500);
+
+                Pose2d rightPose3=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose3)
                         .forward(14)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose4=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose4)
                         .back(12)
                         .build());
                 sleep(500);
+
                 drive.turn(Math.toRadians(-40));
+                sleep(500);
+
                 Pose2d rightPose5 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose5)
                         .forward(32)
                         .build());
                 sleep(500);
+
                 drive.turn(Math.toRadians(90));
+                sleep(500);
+
                 Pose2d rightPose6=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose6)
                         .forward(100)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose7=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose7)
                         .strafeLeft(24)
                         .build());
                 sleep(500);
-                Pose2d rightPose8=drive.getPoseEstimate();
+
+
                 //motor and servo logic to drop pixel on board
                 //TODO motor and servo add logic here
 
                 //strafe to the side and park
+                Pose2d rightPose8=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose8)
                         .strafeRight(24)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose9=drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose9)
                         .forward(14)
@@ -204,6 +228,7 @@ public class BAbestCase extends LinearOpMode {
                         .forward(26)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose2 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose2)
                         .strafeRight(10)
@@ -224,17 +249,22 @@ public class BAbestCase extends LinearOpMode {
                         .strafeLeft(12)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose5 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose5)
                         .forward(38)
                         .build());
                 sleep(500);
+
                 drive.turn(Math.toRadians(90));
+                sleep(500);
+
                 Pose2d rightPose6 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose6)
                         .forward(82)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose7 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose7)
                         .strafeLeft(24)
@@ -250,6 +280,7 @@ public class BAbestCase extends LinearOpMode {
                         .strafeLeft(24)
                         .build());
                 sleep(500);
+
                 Pose2d rightPose9 = drive.getPoseEstimate();
                 drive.followTrajectory(drive.trajectoryBuilder(rightPose9)
                         .forward(12)
@@ -260,61 +291,6 @@ public class BAbestCase extends LinearOpMode {
 
             //Stop the motors
             drive.setMotorPowers(0,0,0,0);
-
-
-            //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
-
-            /*
-           OPTION A - Write single commands at a time
-
-          //Move Forward 12 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .forward(12)
-                    .build());
-
-          //Move backward 6 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .back(6)
-                    .build());
-
-          //Turn left 135 degrees
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .turn(Math.toRadians(-135))
-                    .build());
-
-          //Strafe Left 6 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .strafeLeft(6)
-                    .build());
-
-          //Stop the robot
-            drive.setMotorPowers(0, 0, 0, 0);
-
-
-
-          OPTION B - Create 'Tracjectory' objects to chain movements together
-
-          //First you create a Trajectory object and give it a name, like this:
-            Trajectory raJustParkTrajectory = drive.trajectoryBuilder()
-                    .forward(12)
-                    .back(6)
-                    .turn(Math.toRadians(-135))
-                    .strafeLeft(6)
-                    .setMotorPowers(0,0,0,0)
-                    .build();
-
-         //Now that it's created, you have to actually tell the program to run it:
-         drive.followTrajectory(raJustPark);
-
-         //Each separate Trajectory needs to be created first
-         //Then you call each one in the order you want the robot to do them in
-
-                drive.followTrajectory(goToSpikeAndDropPixel);
-                drive.followTrajectory(moveToScoreBoard);
-                drive.followTrajectory(placePixelOnScoreBoard);
-                drive.followTrajectory(strafeToTheSideAndPark);
-
-            */
 
 
         }
