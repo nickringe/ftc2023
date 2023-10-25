@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -25,14 +26,23 @@ public class BAjustPark extends LinearOpMode {
         Servo airplaneServo = hardwareMap.servo.get("airplaneServo");
         SampleMecanumDrive drive;
 
+        // Initialize a timer
+        ElapsedTime timer = new ElapsedTime();
+
         // Initialize drive variable
         drive = new SampleMecanumDrive(hardwareMap);
 
+        // Create a starting pose
         Pose2d startPose = new Pose2d(-36,63.5,270);
         waitForStart();
 
 
         while (opModeIsActive()) {
+
+            //set the timer to 0 when we press play
+            timer.reset();
+
+            //TODO update the trajectory below
 
             Trajectory BAJustParkTrajectory = drive.trajectoryBuilder(startPose)
                     .forward(2)
@@ -43,60 +53,11 @@ public class BAjustPark extends LinearOpMode {
 
             drive.followTrajectory(BAJustParkTrajectory);
             drive.setMotorPowers(0,0,0,0);
-            //^^^^^^^^^^^^^^^^^^PUT YOUR CODE ABOVE THIS LINE^^^^^^^^^^^^^^^//
 
-            /*
-           OPTION A - Write single commands at a time
-
-          //Move Forward 12 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .forward(12)
-                    .build());
-
-          //Move backward 6 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .back(6)
-                    .build());
-
-          //Turn left 135 degrees
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .turn(Math.toRadians(-135))
-                    .build());
-
-          //Strafe Left 6 inches
-            drive.followTrajectory(drive.trajectoryBuilder()
-                    .strafeLeft(6)
-                    .build());
-
-          //Stop the robot
-            drive.setMotorPowers(0, 0, 0, 0);
-
-
-
-          OPTION B - Create 'Tracjectory' objects to chain movements together
-
-          //First you create a Trajectory object and give it a name, like this:
-            Trajectory raJustParkTrajectory = drive.trajectoryBuilder()
-                    .forward(12)
-                    .back(6)
-                    .turn(Math.toRadians(-135))
-                    .strafeLeft(6)
-                    .setMotorPowers(0,0,0,0)
-                    .build();
-
-         //Now that it's created, you have to actually tell the program to run it:
-         drive.followTrajectory(raJustPark);
-
-         //Each separate Trajectory needs to be created first
-         //Then you call each one in the order you want the robot to do them in
-
-                drive.followTrajectory(goToSpikeAndDropPixel);
-                drive.followTrajectory(moveToScoreBoard);
-                drive.followTrajectory(placePixelOnScoreBoard);
-                drive.followTrajectory(strafeToTheSideAndPark);
-
-            */
-
+        //make sure robot doesn't move
+        while (timer.seconds() < 40) {
+                idle();
+            }
 
         }
 
