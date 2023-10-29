@@ -42,16 +42,25 @@ public class BAjustPark extends LinearOpMode {
             //set the timer to 0 when we press play
             timer.reset();
 
-            //TODO update the trajectory below
-
             Trajectory BAJustParkTrajectory = drive.trajectoryBuilder(startPose)
                     .forward(2)
+                    .build();
+            sleep(500);
+            Pose2d pose1 = drive.getPoseEstimate();
+            Trajectory RBJustParkTrajectory1 = drive.trajectoryBuilder(pose1)
                     .strafeRight(24)
+                    .build();
+            sleep(500);
+            Pose2d pose2 = drive.getPoseEstimate();
+            Trajectory RBJustParkTrajectory2 = drive.trajectoryBuilder(pose2)
                     .forward(48)
+                    .build();
+            sleep(500);
+            Pose2d pose3 = drive.getPoseEstimate();
+            Trajectory RBJustParkTrajectory3 = drive.trajectoryBuilder(pose3)
                     .strafeLeft(120)
                     .build();
-
-            drive.followTrajectory(BAJustParkTrajectory);
+            sleep(500);
             drive.setMotorPowers(0,0,0,0);
 
         //make sure robot doesn't move
