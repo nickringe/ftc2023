@@ -21,6 +21,9 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
         DcMotor hookMotor = hardwareMap.dcMotor.get("hookMotor");
         Servo airplaneServo = hardwareMap.servo.get("airplaneServo");
         DistanceSensor distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
+        boolean isXButtonPressed = false;
+        int targetPositionYStick = 0;
+
 
         //to track whether or not we want to cap the robot's drive speed at 25%
         boolean capPower25 = false;
@@ -38,6 +41,20 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
+
+        /*
+        Code here to test with TeleOp
+         */
+
+        //set the motor to run using encoder for speed control
+        hookMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //set motor to zero
+        hookMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+         /*
+        Code here to test with TeleOp
+         */
 
         while (opModeIsActive()) {
 
@@ -84,24 +101,44 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
                 capPower25 = false;
             }
 
-            //consider refactoring buttons to a similar logic
-            //this allows them to start/stop when button is pushed
+             /*
+        Code here to test with TeleOp - press x on gamepad2 and have the hookMotor run to specific position
+         */
+            // Check if the "X" button on gamepad2 is pressed
+            if (gamepad2.x) {
+                // Toggle the flag when the button is pressed
+                isXButtonPressed = !isXButtonPressed;
 
-            // Hook motor extends upwards towards the rigging
-            if (gamepad2.right_trigger > 0) {
-                hookMotor.setPower(0.5); // Extends the hook upwards
+                // If the button is pressed, move the motor to the target position
+                if (isXButtonPressed) {
+                    int targetPosition = 1000; // Replace with your desired target position
+                    hookMotor.setTargetPosition(targetPosition);
+                    hookMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    hookMotor.setPower(0.5); // Adjust power as needed
+                } else {
+                    // If the button is released, stop the motor and switch back to using encoder
+                    hookMotor.setPower(0);
+                    hookMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                }
+            }
+             /*
+        Code here to test with TeleOp - hold the current position of the y stick value
+         */
+            double yStickValue = gamepad2.left_stick_y;
+
+            // Check if the Y stick on gamepad2 is actively being moved
+            if (Math.abs(yStickValue) > 0.1) {
+                // Y stick is actively being moved, set the target position and run to it
+                targetPositionYStick = hookMotor.getCurrentPosition() + (int) (yStickValue * 100);  // Adjust the multiplier as needed
+                hookMotor.setTargetPosition(targetPositionYStick);
+                hookMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                hookMotor.setPower(1);  // Set the power to your desired value
             } else {
-                hookMotor.setPower(0); // Stops the motor when the trigger is released
+                // Y stick is not actively being moved, maintain the current position
+                hookMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                hookMotor.setTargetPosition(targetPositionYStick);
+                hookMotor.setPower(1);  // Set the power to your desired value
             }
-
-            /* This is what the old code looked like, for reference:
-
-            if (gamepad2.right_trigger > 0) {
-                hookMotor.setPower(0.5); //extends the hook upwards
-                sleep(1000); //for 1 second
-                hookMotor.setPower(0); //then stops
-            }
-             */
 
             //added to slow down the loop - common practice to reduce
             //likelyhood of erratic behavior
