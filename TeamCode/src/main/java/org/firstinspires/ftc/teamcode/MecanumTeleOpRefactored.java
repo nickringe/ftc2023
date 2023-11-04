@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -23,6 +24,11 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
         DistanceSensor distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         boolean isXButtonPressed = false;
         int targetPositionYStick = 0;
+
+        // Initialize a timer
+        ElapsedTime timer = new ElapsedTime();
+
+        int counter = 0;
 
 
         //to track whether or not we want to cap the robot's drive speed at 25%
@@ -57,6 +63,23 @@ public class MecanumTeleOpRefactored extends LinearOpMode {
          */
 
         while (opModeIsActive()) {
+
+            counter++;
+            if(counter == 1){
+                //set the timer to 0 when we press play
+                timer.reset();
+            }
+
+            telemetry.addData("Timer",timer.seconds());
+
+            if (timer.seconds() >= 60 && timer.seconds() <= 61) {
+                gamepad1.rumble(500);
+                gamepad2.rumble(500);
+            } else if (timer.seconds() >= 90 && timer.seconds() <= 91) {
+                gamepad1.rumble(1000);
+                gamepad2.rumble(1000);
+            }
+
 
             // Read distance from the sensor
             double currentDistance = distanceSensor.getDistance(DistanceUnit.INCH);

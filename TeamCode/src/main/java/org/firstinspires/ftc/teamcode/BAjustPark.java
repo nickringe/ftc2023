@@ -28,6 +28,7 @@ public class BAjustPark extends LinearOpMode {
 
         // Initialize a timer
         ElapsedTime timer = new ElapsedTime();
+        int counter = 0;
 
         // Initialize drive variable
         drive = new SampleMecanumDrive(hardwareMap);
@@ -38,9 +39,22 @@ public class BAjustPark extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+            counter++;
+            if(counter == 1){
+                //set the timer to 0 when we press play
+                timer.reset();
+            }
 
-            //set the timer to 0 when we press play
-            timer.reset();
+            telemetry.addData("Timer",timer.time());
+
+            if (timer.seconds() == 60) {
+                gamepad1.rumble(500);
+                gamepad2.rumble(500);
+            } else if (timer.seconds() == 90) {
+                gamepad1.rumble(1000);
+                gamepad2.rumble(1000);
+            }
+
 
             Trajectory BAJustParkTrajectory = drive.trajectoryBuilder(startPose)
                     .forward(2)
